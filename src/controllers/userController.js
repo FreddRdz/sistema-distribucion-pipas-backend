@@ -1,6 +1,11 @@
+import { userService } from '../services/userService.js';
+
 export const userController = {
-  getAll: (req, res) => {
-    res.status(200).json('Todos los usuarios');
+  getAll: async (req, res) => {
+    const allUsers = await userService.getAllUsers();
+    res
+      .status(200)
+      .json({ status: 200, total: allUsers.length, data: allUsers });
   },
 
   getOne: (req, res) => {

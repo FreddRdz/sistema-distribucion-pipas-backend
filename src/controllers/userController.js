@@ -8,8 +8,10 @@ export const userController = {
       .json({ status: 200, total: allUsers.length, data: allUsers });
   },
 
-  getOne: (req, res) => {
-    res.status(200).json('Un usuario en especifico');
+  getOne: async (req, res) => {
+    const { id } = req.params;
+    const user = await userService.getOneUser(id);
+    res.status(200).json({ status: 200, data: user });
   },
 
   createOne: (req, res) => {

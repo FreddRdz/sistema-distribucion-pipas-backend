@@ -8,4 +8,12 @@ export const userService = {
       throw new Error(error);
     }
   },
+
+  getOneUser: (id) => {
+    try {
+      return UserModel.find({ _id: id });
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
 };

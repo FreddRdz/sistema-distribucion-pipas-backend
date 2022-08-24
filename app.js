@@ -4,6 +4,7 @@ import express, { json } from 'express';
 import './src/config/loadEnv.js';
 import { connectToDb } from './src/config/db.js';
 import { userRouter } from './src/routes/userRoute.js';
+import { authRouter } from './src/routes/authRoute.js';
 
 const app = express();
 
@@ -19,6 +20,7 @@ connectToDb(URI_DATABASE);
 
 // Route middleware
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/auth', authRouter);
 
 // Puerto al que vamos a utilizar
 app.listen(PORT, () => {

@@ -14,15 +14,34 @@ export const userController = {
     res.status(200).json({ status: 200, data: user });
   },
 
-  createOne: (req, res) => {
-    res.status(201).json('Creamos un usuario');
+  createOne: async (req, res) => {
+    const userData = { ...req.body };
+    const newUser = await userService.createUser(userData);
+    res.status(201).json({ status: 201, data: newUser });
   },
 
-  delete: (req, res) => {
-    res.status(200).json('Borramos un usuario');
+  delete: async (req, res) => {
+    const { id } = req.params;
+
+    const findUser = await userService.getOneUser(id);
+
+    !findUser ??
+      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
+
+    const userDeleted = await userService.deleteUser(id);
+    res.status(200).json({ status: 200, isDeleted: true, data: userDeleted });
   },
 
-  update: (req, res) => {
-    res.status(200).json('Actualizamos un usuario');
+  update: async (req, res) => {
+    const { id } = req.params;
+
+    const oldDataUser = await userService.getOneUser(id);
+
+    !oldDataUser ??
+      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
+
+    const userData = { ...oldDataUser, ...req.body };
+    const userUpdated = await userService.updateUser(id, userData);
+    res.status(200).json({ status: 200, isUpdated: true, data: userUpdated });
   },
 };

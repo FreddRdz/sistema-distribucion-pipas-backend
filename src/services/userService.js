@@ -1,9 +1,9 @@
-import UserModel from '../models/userModel.js';
+import USER from '../models/userModel.js';
 
 export const userService = {
   getAllUsers: () => {
     try {
-      return UserModel.find({});
+      return USER.find({});
     } catch (error) {
       throw new Error(error);
     }
@@ -11,7 +11,7 @@ export const userService = {
 
   getUserById: (id) => {
     try {
-      return UserModel.findOne({ _id: id });
+      return USER.findOne({ _id: id });
     } catch (error) {
       throw new Error(error);
     }
@@ -19,7 +19,7 @@ export const userService = {
 
   createUser: (newUser) => {
     try {
-      return UserModel.create(newUser);
+      return USER.create(newUser);
     } catch (error) {
       throw new Error(error);
     }
@@ -27,7 +27,7 @@ export const userService = {
 
   deleteUser: (id) => {
     try {
-      return UserModel.findByIdAndUpdate(
+      return USER.findByIdAndUpdate(
         id,
         { deletedAt: new Date() },
         { new: true }
@@ -39,7 +39,7 @@ export const userService = {
 
   updateUser: (id, newUserData) => {
     try {
-      return UserModel.findByIdAndUpdate(id, { ...newUserData }, { new: true });
+      return USER.findByIdAndUpdate(id, { ...newUserData }, { new: true });
     } catch (error) {
       throw new Error(error);
     }
@@ -47,7 +47,7 @@ export const userService = {
 
   getUserByEmail: (email) => {
     try {
-      return UserModel.findOne({ email: email });
+      return USER.findOne({ email: email });
     } catch (error) {
       throw new Error(error);
     }

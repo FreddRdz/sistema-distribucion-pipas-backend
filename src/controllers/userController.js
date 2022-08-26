@@ -1,4 +1,5 @@
 import { userService } from '../services/userService.js';
+import { updateInfo } from '../helpers/updateUserData.js';
 
 export const userController = {
   getAll: async (req, res) => {
@@ -7,7 +8,7 @@ export const userController = {
 
     // Si no hay usuarios, le mandaremos un mensaje que no se encontró la información
     !allUsers ??
-      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
+      res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
 
     res
       .status(200)
@@ -19,13 +20,12 @@ export const userController = {
     const { id } = req.params;
 
     // Llamamos al servicio para encontrar el usuario
-    const user = await userService.getOneUser(id);
+    const user = await userService.getUserById(id);
 
     // Si el usuario no se encuentra en la base de datos, le mandaremos un mensaje que no se encontró
-    !user ??
-      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
-
-    res.status(200).json({ status: 200, data: user });
+    user === null
+      ? res.status(404).json({ status: 404, message: 'Usuario no encontrado!' })
+      : res.status(200).json({ status: 200, data: user });
   },
 
   createOne: async (req, res) => {
@@ -39,30 +39,35 @@ export const userController = {
     const { id } = req.params;
 
     // Llamamos al servicio para encontrar el usuario
-    const findUser = await userService.getOneUser(id);
+    const user = await userService.getUserById(id);
 
     // Si el usuario no se encuentra en la base de datos, le mandaremos un mensaje que no se encontró
-    !findUser ??
-      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
-
-    const userDeleted = await userService.deleteUser(id);
-    res.status(200).json({ status: 200, isDeleted: true, data: userDeleted });
+    if (user === null) {
+      res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
+    } else {
+      const userDeleted = await userService.deleteUser(id);
+      res.status(200).json({ status: 200, isDeleted: true, data: userDeleted });
+    }
   },
 
   update: async (req, res) => {
     // Capturamos el valor del id de la ruta
     const { id } = req.params;
+    const { newDataUser } = { ...req.body };
 
     // Llamamos al servicio para encontrar el usuario
-    const oldDataUser = await userService.getOneUser(id);
+    const oldDataUser = await userService.getUserById(id);
 
     // Si el usuario no se encuentra en la base de datos, le mandaremos un mensaje que no se encontró
-    !oldDataUser ??
-      res.status(404).json({ status: 404, message: 'Usuario no encontrado' });
+    if (oldDataUser === null) {
+      res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
+    } else {
+      // Capturamos los datos
+      const userData = updateInfo(oldDataUser, newDataUser);
 
-    // En caso que la información de lo que se cambie sea nueva, pisará la información vieja
-    const userData = { ...oldDataUser, ...req.body };
-    const userUpdated = await userService.updateUser(id, userData);
-    res.status(200).json({ status: 200, isUpdated: true, data: userUpdated });
+      const userUpdated = await userService.updateUser(id, userData);
+
+      res.status(200).json({ status: 200, isUpdated: true, data: userUpdated });
+    }
   },
 };

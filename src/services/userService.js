@@ -3,15 +3,15 @@ import UserModel from '../models/userModel.js';
 export const userService = {
   getAllUsers: () => {
     try {
-      return UserModel.find({ deletedAt: { $ne: null } });
+      return UserModel.find({});
     } catch (error) {
       throw new Error(error);
     }
   },
 
-  getOneUser: (id) => {
+  getUserById: (id) => {
     try {
-      return UserModel.find({ _id: id });
+      return UserModel.findOne({ _id: id });
     } catch (error) {
       throw new Error(error);
     }
@@ -40,6 +40,14 @@ export const userService = {
   updateUser: (id, newUserData) => {
     try {
       return UserModel.findByIdAndUpdate(id, { ...newUserData }, { new: true });
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
+  getUserByEmail: (email) => {
+    try {
+      return UserModel.findOne({ email: email });
     } catch (error) {
       throw new Error(error);
     }

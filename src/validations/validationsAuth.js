@@ -19,6 +19,7 @@ export const validateCreate = [
     .trim()
     .isLength({ min: 2, max: 100 })
     .isEmail()
+    .toLowerCase()
     .not()
     .isEmpty(),
   check('password')
@@ -28,5 +29,23 @@ export const validateCreate = [
     .not()
     .isEmpty(),
   check('degree').exists().trim().isLength({ min: 2, max: 4 }).not().isEmpty(),
+  (req, res, next) => validateResult(req, res, next),
+];
+
+export const validateLogin = [
+  check('email')
+    .exists()
+    .trim()
+    .toLowerCase()
+    .isLength({ min: 2, max: 100 })
+    .isEmail()
+    .not()
+    .isEmpty(),
+  check('password')
+    .exists()
+    .trim()
+    .isLength({ min: 6, max: 100 })
+    .not()
+    .isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];

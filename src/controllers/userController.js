@@ -53,7 +53,9 @@ export const userController = {
   update: async (req, res) => {
     // Capturamos el valor del id de la ruta
     const { id } = req.params;
-    const { newDataUser } = { ...req.body };
+
+    // Hacemos un spread de los valores que vengan en la url
+    const newDataUser = { ...req.body };
 
     // Llamamos al servicio para encontrar el usuario
     const oldDataUser = await userService.getUserById(id);
@@ -62,9 +64,10 @@ export const userController = {
     if (oldDataUser === null) {
       res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
     } else {
-      // Capturamos los datos
-      const userData = updateInfo(oldDataUser, newDataUser);
+      // Creamos una variable donde guardamos los cambios que se hicieron llamando una función para ver qué se modificó
+      const userData = updateInfo(newDataUser, oldDataUser);
 
+      // Utilizamos el servicio para actualizar los datos del usuario pasandole el id del usuario y la información nueva
       const userUpdated = await userService.updateUser(id, userData);
 
       res.status(200).json({ status: 200, isUpdated: true, data: userUpdated });

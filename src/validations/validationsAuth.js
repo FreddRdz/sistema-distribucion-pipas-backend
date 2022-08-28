@@ -28,6 +28,12 @@ export const validateCreate = [
     .isLength({ min: 6, max: 100 })
     .not()
     .isEmpty(),
+  check('repeatPassword')
+    .exists()
+    .trim()
+    .isLength({ min: 6, max: 100 })
+    .not()
+    .isEmpty(),
   check('degree').exists().trim().isLength({ min: 2, max: 4 }).not().isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];
@@ -49,3 +55,15 @@ export const validateLogin = [
     .isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];
+
+// Función que valide que las contraseñas sean las mismas que digite cuando llene el registro
+export const confirmPassword = (req, res, next) => {
+  const { password, repeatPassword } = req.body;
+
+  // Validación que si las contraseñas no coinciden, mande un error y si sí, pasa la validación
+  if (password === repeatPassword) {
+    next();
+  } else {
+    res.status(403).json({ status: 403, message: 'Contraseña no coincide!' });
+  }
+};

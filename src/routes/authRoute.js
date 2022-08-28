@@ -5,6 +5,7 @@ import { passwordToCrypt } from '../middlewares/encryptPassword.js';
 import {
   validateCreate,
   validateLogin,
+  confirmPassword,
 } from '../validations/validationsAuth.js';
 
 export const authRouter = Router();
@@ -12,6 +13,7 @@ export const authRouter = Router();
 authRouter.post(
   '/register',
   validateCreate,
+  confirmPassword,
   checkUserRepeated,
   passwordToCrypt,
   authController.signIn

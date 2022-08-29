@@ -1,5 +1,6 @@
 import { userService } from '../services/userService.js';
 import { compare } from '../helpers/cryptHandler.js';
+import { signToken } from '../helpers/generateToken.js';
 
 export const authController = {
   signIn: async (req, res) => {
@@ -20,13 +21,16 @@ export const authController = {
     if (user === null) {
       res.status(403).json({ status: 403, message: 'Usuario no encontrado' });
     } else {
+      const tokenSession = await signToken(user);
       const validatePassword = await compare(password, user.password);
 
       !validatePassword
         ? res
             .status(403)
             .json({ status: 403, message: 'Contraseña incorrecta!' })
-        : res.status(200).json({ status: 200, message: 'Bienvenido!' });
+        : res
+            .status(200)
+            .json({ status: 200, message: 'Bienvenido!', tokenSession });
     }
   },
 };

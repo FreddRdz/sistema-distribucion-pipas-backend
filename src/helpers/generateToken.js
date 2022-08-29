@@ -8,7 +8,15 @@ export const signToken = async (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: '2m',
+      expiresIn: '2h',
     }
   );
+};
+
+export const verifyToken = async (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return null;
+  }
 };

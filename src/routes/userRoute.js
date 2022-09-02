@@ -2,6 +2,11 @@ import { Router } from 'express';
 import { userController } from '../controllers/userController.js';
 import { checkAuth } from '../middlewares/auth.js';
 import { checkRoleAuth } from '../middlewares/roleAuth.js';
+import {
+  passwordToCrypt,
+  newPasswordToCrypt,
+} from '../middlewares/encryptPassword.js';
+import { checkOldPassword } from '../middlewares/compareOldPassword.js';
 
 export const userRouter = Router();
 
@@ -28,7 +33,7 @@ userRouter.post(
 userRouter.delete(
   '/:id',
   checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['admin', 'user']),
   userController.delete
 );
 
@@ -37,5 +42,16 @@ userRouter.put(
   '/:id',
   checkAuth,
   checkRoleAuth(['admin']),
+  passwordToCrypt,
+  userController.update
+);
+
+// UPDATE PASSWORD - http://localhost:5050/api/v1/users/update/password/:id
+userRouter.put(
+  '/update/password/:id',
+  checkAuth,
+  checkRoleAuth(['user']),
+  checkOldPassword,
+  newPasswordToCrypt,
   userController.update
 );

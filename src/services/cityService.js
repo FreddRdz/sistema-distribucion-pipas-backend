@@ -27,7 +27,7 @@ export const cityService = {
 
   deleteCity: (id) => {
     try {
-      return USER.deleteOne({ _id: id });
+      return CITY.deleteOne({ _id: id });
     } catch (error) {
       throw new Error(error);
     }
@@ -35,7 +35,7 @@ export const cityService = {
 
   updateCity: (id, newCityData) => {
     try {
-      return USER.findByIdAndUpdate(id, { ...newCityData }, { new: true });
+      return CITY.findByIdAndUpdate(id, { ...newCityData }, { new: true });
     } catch (error) {
       throw new Error(error);
     }

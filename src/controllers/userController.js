@@ -8,7 +8,9 @@ export const userController = {
 
     // Si no hay usuarios, le mandaremos un mensaje que no se encontró la información
     !allUsers ??
-      res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
+      res
+        .status(404)
+        .json({ status: 404, message: 'No hay usuarios en la base de datos!' });
 
     res
       .status(200)

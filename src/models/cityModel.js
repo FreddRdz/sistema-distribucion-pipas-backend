@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-const CitySchema = new mongoose.Schema = {
+const CitySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -16,16 +16,17 @@ const CitySchema = new mongoose.Schema = {
     required: true,
   },
 
-  pipes: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Pipa',
-  }],
+  pipes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Pipa',
+    },
+  ],
 
   deletedAt: {
     type: Date,
   },
-
-}
+});
 
 const CityModel = mongoose.model('City', CitySchema);
 

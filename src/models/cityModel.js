@@ -21,6 +21,10 @@ const CitySchema = new mongoose.Schema = {
     ref: 'Pipa',
   }],
 
+  deletedAt: {
+    type: Date,
+  },
+
 }
 
 const CityModel = mongoose.model('City', CitySchema);

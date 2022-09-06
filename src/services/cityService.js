@@ -3,7 +3,7 @@ import CITY from '../models/cityModel.js';
 export const cityService = {
   getAllCities: () => {
     try {
-      return CITY.find({});
+      return CITY.find({}).populate('pipes');
     } catch (error) {
       throw new Error(error);
     }

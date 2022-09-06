@@ -19,7 +19,7 @@ const CitySchema = new mongoose.Schema({
   pipes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Pipa',
+      ref: 'Pipe',
     },
   ],
 

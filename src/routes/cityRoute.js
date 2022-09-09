@@ -17,3 +17,9 @@ cityRouter.delete('/:id', cityController.delete);
 
 // UPDATE - http://localhost:5050/api/v1/cities/:id
 cityRouter.put('/:id', cityController.update);
+
+// UPDATE PIPE - http://localhost:5050/api/v1/cities/add/pipe/:id
+cityRouter.put('/add/pipe/:id/:pipe', cityController.addPipe);
+
+// DELETE PIPE - http://localhost:5050/api/v1/cities/delete/pipe/:id
+cityRouter.delete('/delete/pipe/:id/:pipe', cityController.deletePipe);

@@ -40,4 +40,28 @@ export const cityService = {
       throw new Error(error);
     }
   },
+
+  addPipeToCity: (id, newPipe) => {
+    try {
+      return CITY.findByIdAndUpdate(
+        id,
+        { $push: { pipes: newPipe } },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
+  deletePipeFromCity: (id, deletePipe) => {
+    try {
+      return CITY.findByIdAndUpdate(
+        id,
+        { $pull: { pipes: deletePipe } },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
 };

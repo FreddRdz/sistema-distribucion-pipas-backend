@@ -2,7 +2,7 @@ import { updateInfo } from '../helpers/updateUserData.js';
 import { pipeService } from '../services/pipeService.js';
 
 export const pipeController = {
-  getAll: async () => {
+  getAll: async (req, res) => {
     const allPipes = await pipeService.getAllPipes();
 
     !allPipes ??

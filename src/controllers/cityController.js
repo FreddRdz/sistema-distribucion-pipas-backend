@@ -73,4 +73,28 @@ export const cityController = {
       res.status(200).json({ status: 200, isUpdated: true, data: cityUpdated });
     }
   },
+
+  addPipe: async (req, res) => {
+    const { id, pipe } = req.params;
+
+    const cityUpdated = await cityService.addPipeToCity(id, pipe);
+
+    res.status(200).json({
+      status: 200,
+      message: 'Pipa añadida a la ciudad!',
+      data: cityUpdated,
+    });
+  },
+
+  deletePipe: async (req, res) => {
+    const { id, pipe } = req.params;
+
+    const cityUpdated = await cityService.deletePipeFromCity(id, pipe);
+
+    res.status(200).json({
+      status: 200,
+      message: 'Pipa eliminada a la ciudad!',
+      data: cityUpdated,
+    });
+  },
 };

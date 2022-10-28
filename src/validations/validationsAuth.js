@@ -34,7 +34,6 @@ export const validateCreate = [
     .isLength({ min: 6, max: 100 })
     .not()
     .isEmpty(),
-  check('degree').exists().trim().isLength({ min: 2, max: 4 }).not().isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];
 
@@ -53,6 +52,11 @@ export const validateLogin = [
     .isLength({ min: 6, max: 100 })
     .not()
     .isEmpty(),
+  (req, res, next) => validateResult(req, res, next),
+];
+
+export const validateToken = [
+  check('token').exists().trim().isString().not().isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];
 

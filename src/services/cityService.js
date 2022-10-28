@@ -11,7 +11,7 @@ export const cityService = {
 
   getCity: (id) => {
     try {
-      return CITY.findOne({ _id: id });
+      return CITY.findOne({ _id: id }).populate('pipes');
     } catch (error) {
       throw new Error(error);
     }

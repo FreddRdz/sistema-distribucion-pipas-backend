@@ -47,7 +47,7 @@ export const userController = {
     if (user === null) {
       res.status(404).json({ status: 404, message: 'Usuario no encontrado!' });
     } else {
-      const userDeleted = await userService.deleteUser(id);
+      const userDeleted = await userService.deleteUserByAdmin(id);
       res.status(200).json({ status: 200, isDeleted: true, data: userDeleted });
     }
   },

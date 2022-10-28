@@ -6,14 +6,10 @@ const CitySchema = new mongoose.Schema({
     required: true,
   },
 
-  coordinateX: {
+  waterLevel: {
     type: String,
     required: true,
-  },
-
-  coordinateY: {
-    type: String,
-    required: true,
+    default: 'Normal',
   },
 
   pipes: [
@@ -21,6 +17,15 @@ const CitySchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Pipe',
     },
+  ],
+
+  coordinates: [
+    [
+      {
+        type: Array,
+        required: true,
+      },
+    ],
   ],
 
   deletedAt: {

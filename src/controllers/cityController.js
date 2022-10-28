@@ -1,4 +1,5 @@
 import { cityService } from '../services/cityService.js';
+import { pipeService } from '../services/pipeService.js';
 import { updateInfo } from '../helpers/updateUserData.js';
 
 export const cityController = {
@@ -78,6 +79,7 @@ export const cityController = {
     const { id, pipe } = req.params;
 
     const cityUpdated = await cityService.addPipeToCity(id, pipe);
+    await pipeService.changeAvailableToFalse(pipe);
 
     res.status(200).json({
       status: 200,
@@ -90,6 +92,7 @@ export const cityController = {
     const { id, pipe } = req.params;
 
     const cityUpdated = await cityService.deletePipeFromCity(id, pipe);
+    await pipeService.changeAvailableToTrue(pipe);
 
     res.status(200).json({
       status: 200,

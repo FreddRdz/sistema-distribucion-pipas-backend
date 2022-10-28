@@ -1,8 +1,7 @@
 import { encrypt } from '../helpers/cryptHandler.js';
 
 export const passwordToCrypt = async (req, res, next) => {
-  const { password } = req.body;
-  password = await encrypt(password);
+  req.body.password = await encrypt(req.body.password);
   next();
 };
 

@@ -13,7 +13,7 @@ export const cityRouter = Router();
 cityRouter.get(
   '/',
   checkAuth,
-  checkRoleAuth(['admin, user']),
+  checkRoleAuth(['user', 'admin']),
   cityController.getAll
 );
 
@@ -21,7 +21,7 @@ cityRouter.get(
 cityRouter.get(
   '/:id',
   checkAuth,
-  checkRoleAuth(['admin, user']),
+  checkRoleAuth(['user', 'admin']),
   cityController.getOne
 );
 
@@ -29,8 +29,9 @@ cityRouter.get(
 cityRouter.post(
   '/',
   checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   validateCreateCity,
+
   cityController.createOne
 );
 
@@ -38,7 +39,7 @@ cityRouter.post(
 cityRouter.delete(
   '/:id',
   checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   cityController.delete
 );
 
@@ -46,23 +47,18 @@ cityRouter.delete(
 cityRouter.put(
   '/:id',
   checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   validateUpdateCity,
   cityController.update
 );
 
 // UPDATE PIPE - http://localhost:5050/api/v1/cities/add/:id/:pipe
-cityRouter.put(
-  '/add/pipe/:id/:pipe',
-  checkAuth,
-  checkRoleAuth(['admin']),
-  cityController.addPipe
-);
+cityRouter.put('/add/pipe/:id/:pipe', cityController.addPipe);
 
 // DELETE PIPE - http://localhost:5050/api/v1/cities/delete/:id/:pipe
 cityRouter.delete(
   '/delete/pipe/:id/:pipe',
   checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   cityController.deletePipe
 );

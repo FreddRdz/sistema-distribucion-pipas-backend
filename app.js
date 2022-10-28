@@ -1,5 +1,6 @@
 // Importamos las librerias que instalamos
 import express, { json } from 'express';
+import cors from 'cors';
 // Importamos archivos propios
 import './src/config/loadEnv.js';
 import { connectToDb } from './src/config/db.js';
@@ -12,6 +13,7 @@ const app = express();
 
 // Middleware
 app.use(json());
+app.use(cors());
 
 // Variables de entorno
 const URI_DATABASE = process.env.URI_DATABASE;

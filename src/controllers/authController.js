@@ -1,5 +1,5 @@
 import { userService } from '../services/userService.js';
-import { compare } from '../helpers/cryptHandler.js';
+import { compare, encrypt } from '../helpers/cryptHandler.js';
 import { signToken } from '../helpers/generateToken.js';
 
 export const authController = {

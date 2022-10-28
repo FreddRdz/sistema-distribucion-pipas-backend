@@ -11,11 +11,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 
-  degree: {
-    type: String,
-    required: true,
-  },
-
   email: {
     type: String,
     required: true,

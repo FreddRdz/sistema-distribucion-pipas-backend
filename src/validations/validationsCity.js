@@ -9,20 +9,6 @@ export const validateCreateCity = [
     .isLength({ min: 2, max: 255 })
     .not()
     .isEmpty(),
-  check('coordinateX')
-    .exists()
-    .trim()
-    .isString()
-    .isLength({ min: 5 })
-    .not()
-    .isEmpty(),
-  check('coordinateY')
-    .exists()
-    .trim()
-    .isString()
-    .isLength({ min: 5 })
-    .not()
-    .isEmpty(),
   (req, res, next) => validateResult(req, res, next),
 ];
 

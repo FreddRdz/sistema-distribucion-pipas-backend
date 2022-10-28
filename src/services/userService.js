@@ -37,6 +37,14 @@ export const userService = {
     }
   },
 
+  deleteUserByAdmin: (id) => {
+    try {
+      return USER.findByIdAndDelete(id);
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
   updateUser: (id, newUserData) => {
     try {
       return USER.findByIdAndUpdate(id, { ...newUserData }, { new: true });

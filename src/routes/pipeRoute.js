@@ -10,26 +10,15 @@ import {
 export const pipeRouter = Router();
 
 // GET - http://localhost:5050/api/v1/pipes
-pipeRouter.get(
-  '/',
-  checkAuth,
-  checkRoleAuth(['admin, user']),
-  pipeController.getAll
-);
+pipeRouter.get('/', checkRoleAuth(['user', 'admin']), pipeController.getAll);
 
 // GET - http://localhost:5050/api/v1/pipes/:id
-pipeRouter.get(
-  '/:id',
-  checkAuth,
-  checkRoleAuth(['admin, user']),
-  pipeController.getOne
-);
+pipeRouter.get('/:id', checkRoleAuth(['user', 'admin']), pipeController.getOne);
 
 // POST - http://localhost:5050/api/v1/pipes
 pipeRouter.post(
   '/',
-  checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   validateCreatePipe,
   pipeController.createOne
 );
@@ -37,16 +26,14 @@ pipeRouter.post(
 // DELETE - http://localhost:5050/api/v1/pipes/:id
 pipeRouter.delete(
   '/:id',
-  checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   pipeController.delete
 );
 
 // UPDATE - http://localhost:5050/api/v1/pipes/:id
 pipeRouter.put(
   '/:id',
-  checkAuth,
-  checkRoleAuth(['admin']),
+  checkRoleAuth(['user', 'admin']),
   validateUpdatePipe,
   pipeController.update
 );

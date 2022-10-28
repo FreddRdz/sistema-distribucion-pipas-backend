@@ -6,7 +6,9 @@ import {
   validateCreate,
   validateLogin,
   confirmPassword,
+  validateToken,
 } from '../validations/validationsAuth.js';
+import { checkToken } from '../middlewares/retrieveData.js';
 
 export const authRouter = Router();
 
@@ -18,5 +20,7 @@ authRouter.post(
   passwordToCrypt,
   authController.signIn
 );
+
+authRouter.post('/validate', checkToken);
 
 authRouter.post('/login', validateLogin, authController.logIn);

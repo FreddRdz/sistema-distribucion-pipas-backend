@@ -7,6 +7,7 @@ import {
   newPasswordToCrypt,
 } from '../middlewares/encryptPassword.js';
 import { checkOldPassword } from '../middlewares/compareOldPassword.js';
+import { validateCreateUser } from '../validations/validationsUser.js';
 
 export const userRouter = Router();
 
@@ -24,8 +25,10 @@ userRouter.get(
 // POST - http://localhost:5050/api/v1/users
 userRouter.post(
   '/',
+  validateCreateUser,
   checkAuth,
   checkRoleAuth(['admin']),
+  passwordToCrypt,
   userController.createOne
 );
 
@@ -33,24 +36,16 @@ userRouter.post(
 userRouter.delete(
   '/:id',
   checkAuth,
-  checkRoleAuth(['admin', 'user']),
+  checkRoleAuth(['admin']),
   userController.delete
 );
 
 // UPDATE - http://localhost:5050/api/v1/users/:id
-userRouter.put(
-  '/:id',
-  checkAuth,
-  checkRoleAuth(['admin']),
-  passwordToCrypt,
-  userController.update
-);
+userRouter.put('/:id', passwordToCrypt, userController.update);
 
 // UPDATE PASSWORD - http://localhost:5050/api/v1/users/update/password/:id
 userRouter.put(
   '/update/password/:id',
-  checkAuth,
-  checkRoleAuth(['user']),
   checkOldPassword,
   newPasswordToCrypt,
   userController.update

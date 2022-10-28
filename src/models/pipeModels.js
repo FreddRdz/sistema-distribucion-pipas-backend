@@ -17,6 +17,11 @@ const PipeSchema = new mongoose.Schema({
     default: true,
   },
 
+  position: {
+    type: Array,
+    default: [0, 0],
+  },
+
   capacity: {
     type: Number,
     required: true,

@@ -28,6 +28,10 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/cities', cityRouter);
 app.use('/api/v1/pipes', pipeRouter);
 
+app.get('/', (req, res) => {
+  res.send('App online');
+});
+
 // Puerto al que vamos a utilizar
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);

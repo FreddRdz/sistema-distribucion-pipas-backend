@@ -53,7 +53,12 @@ cityRouter.put(
 );
 
 // UPDATE PIPE - http://localhost:5050/api/v1/cities/add/:id/:pipe
-cityRouter.put('/add/pipe/:id/:pipe', cityController.addPipe);
+cityRouter.put(
+  '/add/pipe/:id/:pipe',
+  checkAuth,
+  checkRoleAuth(['user', 'admin']),
+  cityController.addPipe
+);
 
 // DELETE PIPE - http://localhost:5050/api/v1/cities/delete/:id/:pipe
 cityRouter.delete(
